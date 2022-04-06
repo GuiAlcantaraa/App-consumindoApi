@@ -12,10 +12,9 @@ export default function Home() {
             <Text>Consumindo Api</Text>
             <StatusBar style="auto" />
 
-
             <FlatList
                 data={repositories}
-                keyExtractor={item => item}
+                keyExtractor={item => item.full_name}
                 renderItem={({ item }) => (
                     <RepositoriesCard repositories={item} />
                 )}
