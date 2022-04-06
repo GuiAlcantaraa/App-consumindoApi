@@ -1,28 +1,25 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, FlatList } from 'react-native';
+import { RepositoriesCard } from '../../components/RepositoriesCard';
 import { useApi } from '../../hooks/useApi';
-
 
 export default function Home() {
 
-    const { data } = useApi('https://api.github.com/users/GuiAlcantaraa/repos')
-
-    console.log(data)
+    const { data: repositories } = useApi('/users/GuiAlcantaraa/repos')
 
     return (
         <View style={styles.container}>
             <Text>Consumindo Api</Text>
             <StatusBar style="auto" />
 
-            <TouchableOpacity
-                style={styles.button}
-                activeOpacity={6}
-            >
 
-                <Text style={styles.buttonText}>
-                    Consumir
-                </Text>
-            </TouchableOpacity>
+            <FlatList
+                data={repositories}
+                keyExtractor={item => item}
+                renderItem={({ item }) => (
+                    <RepositoriesCard repositories={item} />
+                )}
+            />
 
         </View>
     );
@@ -31,9 +28,10 @@ export default function Home() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
+        backgroundColor: '#121015',
+        paddingHorizontal: 20,
+        paddingVertical: 70,
+        paddingHorizontal: 30
     },
     button: {
         backgroundColor: '#A370F7',
